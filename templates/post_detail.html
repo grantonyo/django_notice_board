@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+<h1>{{ object.name }}</h1>
+<p><b>Category of post: {{ object.category }}</b></p>
+<hr>
+<p><b>{{ object.text }}</b></p>
+<hr>
+<p><b><i>Published by {{ object.author }} on {{ object.date }}</i></b></p>
+<br>
+
+{% if user.is_authenticated %}
+<p>You can <a href="#">modify</a> this comment. Or you can <a href="#">delete</a>  this comment.</p>
+{% endif %}
+<br>
+<br>
+
+<h2>Comments realted to this post:</h2>
+{%if object.comment_set.all%}
+    <hr>
+    {% for comment in object.comment_set.all %}
+        {% if comment.approved %}
+            <p>{{ comment.text }}</p>
+            <p><i>Published by {{ comment.author }} on {{comment.date}}</i></p>
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}
+

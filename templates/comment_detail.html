@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Comment (detailed information){% endblock %}
+
+{% block content %}
+
+<p><b>Comment to "{{ object.post }}" in category "{{ object.post.category }}"</b></p>
+<p> <i>Published by {{ object.author }} on {{ object.date }}</i></p> 
+<p>{{ object.text }}</a></p>
+<p><i>Approval status: 
+    {% if object.approved %}
+        Approved
+    {% else %}
+        Not approved
+    {% endif %}
+</i></p>
+
+{% endblock content %}
