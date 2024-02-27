@@ -129,12 +129,12 @@ STATIC_URL = 'static/'
 
 # STATIC_ROOT = 'static_root/'
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static"
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 # CKEDITOR_BASEPATH = "/static_root/ckeditor/ckeditor/"
-# CKEDITOR_UPLOAD_PATH = "uploads/"
+# CKEDITOR_UPLO0AD_PATH = "uploads/"
 # CKEDITOR_RESTRICT_BY_USER = "True"
 
 # CKEDITOR_CONFIGS = {

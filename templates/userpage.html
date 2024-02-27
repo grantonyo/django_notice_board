@@ -4,11 +4,22 @@
 
 {% block content %}
 <h1>Personal web page of {{request.user.username}}</h1>
-
+<hr>
 <form action="" method="get">
-    {{ filterset.form.as_p }}
-    <input type="submit" value="Find" />
+    {{ filterset.form }}
+    <input type="submit" value="Find">
 </form>
+<button><a href="{% url 'userpage' %}">Reset filter</a></button>
+<h4>Все отклики на выбранное объявление</h4>
+{% if comments %}
+{% for comment in comments %}
+<p>{{ comment.author }}</p>
+<p>{{ comment.approved }}</p>
+{% endfor %}
+{% endif %}
+
+
+
 
 {% if commentlist %}
 

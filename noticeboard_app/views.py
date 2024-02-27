@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.query import QuerySet
 from django_filters import FilterSet, ModelChoiceFilter
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -89,28 +90,29 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
 class PostFilter(FilterSet):
     class Meta:
         model = Comment
-        fields = {
+        fields = [
             'post',       
-        }
+        ]
 
     def __init__(self, *args, **kwargs):
         super(PostFilter, self).__init__(*args, **kwargs),
-        self.filters['post'].queryset = Post.objects.filter(user_id=kwargs['request'])
+        self.filters['post'].queryset = Post.objects.filter(author_id=kwargs['request'])
 
 class UserPage(LoginRequiredMixin, ListView):
     model = Comment
     ordering = 'date'
     template_name = 'userpage.html'
-    context_object_name = 'userpage'
+    context_object_name = 'comments'
     paginate_by = 10
 
-    # def get_queryset(self):
-    #    queryset = super().get_queryset()
-    #    self.filterset = PostFilter(self.request.GET, queryset)
-    #    return self.filterset.qs
+    def get_queryset(self):
+        quesryset = Comment.objects.filter(post__author_id=self.request.user.id)
+        self.filterset = PostFilter(self.request.GET, quesryset, request=self.request.user.id)
+        if self.request.GET:
+            return self.filterset.qs
+        return Comment.objects.none()
 
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
-       quesryset = Comment.objects.filter(post__user_id=self.request.user.id)
-       context['filterset'] = PostFilter(self.request.GET, quesryset, request=self.request.user.id)
+       context['filterset'] = self.filterset
        return context
