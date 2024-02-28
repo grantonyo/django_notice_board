@@ -86,7 +86,6 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('commentlist')
 
 
-
 class PostFilter(FilterSet):
     class Meta:
         model = Comment
@@ -116,3 +115,4 @@ class UserPage(LoginRequiredMixin, ListView):
        context = super().get_context_data(**kwargs)
        context['filterset'] = self.filterset
        return context
+

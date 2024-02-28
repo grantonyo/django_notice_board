@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     # 'allauth.account',
     # 'allauth.socialaccount',
     # 'allauth.socialaccount.providers.yandex',
-    # 'ckeditor', 
+    'ckeditor', 
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -126,39 +127,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+STATICFILES_DIR = [STATIC_DIR]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
-# STATIC_ROOT = 'static_root/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
-
-# CKEDITOR_BASEPATH = "/static_root/ckeditor/ckeditor/"
-# CKEDITOR_UPLO0AD_PATH = "uploads/"
-# CKEDITOR_RESTRICT_BY_USER = "True"
-
-# CKEDITOR_CONFIGS = {
-#     "default": {
-#         "remolvePlugins": "stylesheetparser",
-#     }
-# }
-
-# # CKEDITOR_CONFIGS = {
-# #     'awesome_ckeditor': {
-# #         'toolbar': 'Basic',
-# #     },
-# #     'default': {
-# #         'toolbar': 'Custom',
-# #         'toolbar_Custom': [
-# #             ['Bold', 'Italic', 'Underline'],
-# #             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-# #             ['Link', 'Unlink'],
-# #             ['RemoveFormat', 'Source']
-# #         ]
-# #     }
-# # }
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'autoParagraph': False,
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule', 'Smiley'],
+            ['Format', 'FontSize', 'TextColor', 'BGColor'],
+            ['Maximize'],
+        ],
+        'width': 700,  
+        'height': 300,  
+        'autoGrow_bottomSpace': 10,
+        'autoGrow_minHeight': 300,
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

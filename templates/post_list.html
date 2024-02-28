@@ -10,7 +10,7 @@
         {% for p in postlist %}
             <hr>
             <p><a href="{{p.pk}}">{{ p.name }}</a></p>
-            <p>{{ p.text|truncatewords:15 }}</p>
+            <p>{{ p.text|truncatewords:15|safe }}</p>
             <p><i>Published by {{ p.author }}  in category "{{ p.category }}" on {{ p.date }} <i></p>
             <hr>
         {% endfor %}

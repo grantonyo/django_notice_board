@@ -6,7 +6,7 @@
 <h1>{{ object.name }}</h1>
 <p><b>Category of post: {{ object.category }}</b></p>
 <hr>
-<p><b>{{ object.text }}</b></p>
+<p>{{ object.text|safe }}</p>
 <hr>
 <p><b><i>Published by {{ object.author }} on {{ object.date }}</i></b></p>
 <br>
