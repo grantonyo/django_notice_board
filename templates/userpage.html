@@ -9,14 +9,38 @@
     {{ filterset.form }}
     <input type="submit" value="Find">
 </form>
+<br>
 <button><a href="{% url 'userpage' %}">Reset filter</a></button>
-<h4>Все отклики на выбранное объявление</h4>
+<h4>Все отклики на выбранное объявление:</h4>
 {% if comments %}
-{% for comment in comments %}
-<p>{{ comment.author }}</p>
-<p>{{ comment.approved }}</p>
-{% endfor %}
+    {% for comment in comments %}
+        <hr>    
+        <p>{{ comment.author }}: {{ comment.text }}</p>
+        <p>Status of this comment: {{ comment.status }}</p>
+        <p>Change status: 
+            {% if comment.status == 'undefined' %}
+                <form method="post" action="">
+                <!-- <form method="get" action="{% url 'accept_comment' comment.id %}"> -->
+                    {% csrf_token %}
+                    <button type="submit">Approve</button> 
+                </form>
+                <form method="post" action="#">
+                    {% csrf_token %}
+                    <button type="submit">Reject</button> 
+                </form>
+            {% else %}
+                <form method="post" action="#"> 
+                    {% csrf_token %}
+                    <button type="submit">Reset to undefined</button>
+                </form>
+            {% endif %}
+        </p>
+        <hr>
+
+    {% endfor %}
 {% endif %}
+
+
 
 {# Информация о текущей странице #}
 {{ page_obj.number }}

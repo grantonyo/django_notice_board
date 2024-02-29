@@ -9,7 +9,7 @@
 
         {% for p in commentlist %}
             <hr>
-            <p><a href="{{p.pk}}">Comment</a> to "{{ p.post }}" in category "{{ p.post.category }}" |<i>Published by {{ p.author }} on {{ p.date }} | Approval status: {{ p.approved }}<i></p> 
+            <p><a href="{{p.pk}}">Comment</a> to "{{ p.post }}" in category "{{ p.post.category }}" |<i>Published by {{ p.author }} on {{ p.date }} | Approval status: {{p.status}} {{ p.approved }}<i></p> 
             <p>{{ p.text|truncatewords:15 }}</a></p>
             <hr>
         {% endfor %}

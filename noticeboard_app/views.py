@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django_filters import FilterSet, ModelChoiceFilter
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -115,4 +115,9 @@ class UserPage(LoginRequiredMixin, ListView):
        context = super().get_context_data(**kwargs)
        context['filterset'] = self.filterset
        return context
-
+    
+# def accept_comment(request, comment_id):
+#     response = get_object_or_404(Comment, id = comment_id)
+#     response.status = 'accepted'
+#     response.save()
+       

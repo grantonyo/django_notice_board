@@ -20,7 +20,6 @@ POSTCATEGORY = [
 class Post(models.Model):
     name = models.CharField(max_length = 255)
     category = models.CharField(max_length = 20, choices = POSTCATEGORY, default = 'other')
-    # text = models.TextField()
     text = RichTextField()
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     date = models.DateField(auto_now_add = True)
@@ -33,9 +32,9 @@ class Post(models.Model):
 
 
 APPROVAL_STATUS = [
-    ('RA',  'requires approval'),
-    ('A', 'approved'),
-    ('NA', 'not approved'),
+    ('undefined', 'undefined'),
+    ('approved', 'approved'),
+    ('rejected', 'rejected'),
 ]
 
 class Comment(models.Model):
@@ -43,7 +42,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
     date = models.DateField(auto_now_add = True)
-    approved =  models.CharField(max_length = 20, choices = APPROVAL_STATUS, default = 'RA')
+    status =  models.CharField(max_length = 20, choices = APPROVAL_STATUS, default = 'undefined')
 
     def __str__(self):
         return self.text

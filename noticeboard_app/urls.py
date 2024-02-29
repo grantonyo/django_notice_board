@@ -12,5 +12,8 @@ urlpatterns = [
     path('comments/create/', CommentCreate.as_view(), name='comment_create'),
     path('comments/<int:pk>/update/', CommentUpdate.as_view(), name='comment_update'),
     path('comments/<int:pk>/delete/', CommentDelete.as_view(), name='comment_delete'),
+    # path('comments/<int:pk/accept/', accept_comment, name='accept_comment'),
+    # path('comments/<int:pk/delete/', reject_comment, name='reject_comment'),
+    # path('comments/<int:pk/reset/', reset_status, name='reset_status'),
     path('userpage/', UserPage.as_view(), name="userpage"),
 ]
