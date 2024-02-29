@@ -3,15 +3,17 @@
 {% block title %}List of comments{% endblock %}
 
 {% block content %}
-<h1>List of comments</h1>
+<h1>List of approved comments</h1>
 
 {% if commentlist %}
 
         {% for p in commentlist %}
-            <hr>
-            <p><a href="{{p.pk}}">Comment</a> to "{{ p.post }}" in category "{{ p.post.category }}" |<i>Published by {{ p.author }} on {{ p.date }} | Approval status: {{p.status}} {{ p.approved }}<i></p> 
-            <p>{{ p.text|truncatewords:15 }}</a></p>
-            <hr>
+            {% if p.status == 'approved' %}
+                <hr>
+                <p><a href="{{p.pk}}">Comment</a> to "{{ p.post }}" in category "{{ p.post.category }}" |<i>Published by {{ p.author }} on {{ p.date }} | Approval status: {{p.status}} {{ p.approved }}<i></p> 
+                <p>{{ p.text|truncatewords:15 }}</a></p>
+                <hr>
+            {% endif %}
         {% endfor %}
         
 {% else %}

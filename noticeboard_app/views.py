@@ -1,9 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models.query import QuerySet
-from django_filters import FilterSet, ModelChoiceFilter
+from django.contrib.auth.decorators import login_required
+from django_filters import FilterSet
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
@@ -90,7 +89,8 @@ class PostFilter(FilterSet):
     class Meta:
         model = Comment
         fields = [
-            'post',       
+            'post', 
+            'status'      
         ]
 
     def __init__(self, *args, **kwargs):
@@ -115,9 +115,40 @@ class UserPage(LoginRequiredMixin, ListView):
        context = super().get_context_data(**kwargs)
        context['filterset'] = self.filterset
        return context
+
+@login_required
+def accept_comment(request, pk):
+    response = get_object_or_404(Comment, pk=pk)
+
+    if request.user != response.post.author:
+        return redirect('error403')
     
-# def accept_comment(request, comment_id):
-#     response = get_object_or_404(Comment, id = comment_id)
-#     response.status = 'accepted'
-#     response.save()
-       
+    response.status = 'approved'
+    response.save()
+    return redirect('userpage')
+
+@login_required
+def reject_comment(request, pk):
+    response = get_object_or_404(Comment, pk=pk)
+    
+    if request.user != response.post.author:
+        return redirect('error403')
+    
+    response.status = 'rejected'
+    response.save()
+    return redirect('userpage')
+
+@login_required
+def reset_comment_status(request, pk):
+    response = get_object_or_404(Comment, pk=pk)
+    
+    if request.user != response.post.author:
+        return redirect('error403')
+    
+    response.status = 'undefined'
+    response.save()
+    return redirect('userpage')
+
+
+def error403(request):
+    return render(request, "403.html")

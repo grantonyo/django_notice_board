@@ -12,8 +12,9 @@ urlpatterns = [
     path('comments/create/', CommentCreate.as_view(), name='comment_create'),
     path('comments/<int:pk>/update/', CommentUpdate.as_view(), name='comment_update'),
     path('comments/<int:pk>/delete/', CommentDelete.as_view(), name='comment_delete'),
-    # path('comments/<int:pk/accept/', accept_comment, name='accept_comment'),
-    # path('comments/<int:pk/delete/', reject_comment, name='reject_comment'),
-    # path('comments/<int:pk/reset/', reset_status, name='reset_status'),
+    path('comments/<int:pk>/accept/', accept_comment, name='accept_comment'),
+    path('comments/<int:pk>/reject/', reject_comment, name='reject_comment'),
+    path('comments/<int:pk>/reset/', reset_comment_status, name='reset_comment_status'),
     path('userpage/', UserPage.as_view(), name="userpage"),
+    path("error403/", error403, name="error403"),
 ]

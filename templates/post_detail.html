@@ -11,7 +11,7 @@
 <p><b><i>Published by {{ object.author }} on {{ object.date }}</i></b></p>
 <br>
 
-{% if user.is_authenticated %}
+{% if user == object.author %}
 <p>You can <a href="{% url 'post_update' object.pk %}">modify</a> this comment. Or you can <a href="{% url 'post_delete' object.pk %}">delete</a>  this comment.</p>
 {% endif %}
 <br>
