@@ -9,4 +9,12 @@
 <p>{{ object.text }}</a></p>
 <p><i>Approval status: {{object.status }}</i></p>
 
+
+{% if user == object.author %}
+<p>You can <a href="{% url 'comment_update' object.pk %}">modify</a> this comment. Or you can <a href="{% url 'comment_delete' object.pk %}">delete</a>  this comment.</p>
+{% endif %}
+<br>
+<br>
+
+
 {% endblock content %}

@@ -7,13 +7,13 @@
     {% if user.is_authenticated %}
     <p>You are logged in as <b>{{ user.username }}</b>! You can :</p>
     <p>- read <a href="{% url 'postlist' %}">posts</a> and <a href="{% url 'commentlist' %}">approved comments</a></p>
-    <p>- <a href="{% url 'post_create' %}">add</a> new posts, edit and delete your posts</p>
-    <p>- <a href="{% url 'comment_create' %}">add</a> new comments, edit and delete your comments</p>
+    <p>- <a href="{% url 'post_create' %}">add</a> new posts, edit and delete your posts (in the page of the post that you created)</p>
+    <p>- <a href="{% url 'comment_create' %}">add</a> new comments, edit and delete your comments (in the page of the comment that you created)</p>
     <p>- review and approve or reject comments of other gamers to your posts</p>
     {% else %}
     <p>You are not logged in.</p>
     <p>You can read <a href="{% url 'postlist' %}">posts</a> and <a href="{% url 'commentlist' %}">approved comments</a>.</p>
-    <p>But you need to <a href="{% url 'login' %}">log in</a> or <a href="{% url 'signup' %}">register</a> if you want to issue posts, edit and delete them and add comments to the posts of other gamers.</p>
+    <p>But you need to <a href="{% url 'account_login' %}">log in</a> or <a href="{% url 'account_signup' %}">register</a> if you want to issue posts, edit and delete them and add comments to the posts of other gamers.</p>
 
     {% endif %}
 
